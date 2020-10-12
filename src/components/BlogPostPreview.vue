@@ -1,5 +1,5 @@
 <template>
-  <div class="card mx-5 my-5">
+  <div class="card mx-3 my-3">
     <header class="card-header">
       <p class="card-header-title">{{ post.title }}</p>
     </header>

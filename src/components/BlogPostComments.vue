@@ -12,7 +12,7 @@
             </p>
           </div>
         </div>
-        <div class="media-right">
+        <div class="media-right" v-if="loginToken">
           <button class="delete"></button>
         </div>
       </article>
@@ -26,7 +26,7 @@ import moment from 'moment';
 
 export default {
   name: 'BlogPostComments',
-  data: () => ({ comments: null }),
+  data: () => ({ comments: null, loginToken: localStorage.getItem('token') }),
   props: { id: String },
   methods: {
     formatDate(date) {
