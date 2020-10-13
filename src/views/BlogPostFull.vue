@@ -134,4 +134,10 @@ export default {
 #buttons {
   margin-right: auto;
 }
+
+.content {
+  @media screen and (max-width: 720px) {
+    padding: 20px;
+  }
+}
 </style>
