@@ -2,6 +2,9 @@
   <div class="card mx-3 my-3">
     <header class="card-header">
       <p class="card-header-title">{{ post.title }}</p>
+      <div class="media-right mt-3 mr-2" v-if="loginToken">
+        <button class="delete" @click.prevent.stop="deletePost(post)"></button>
+      </div>
     </header>
     <div class="card-content">
       <p class="content post-text">
@@ -44,6 +47,18 @@ export default {
     formatDate(date) {
       return moment(date).format('MMM Do, YYYY');
     },
+    async deletePost(post) {
+      try {
+        await axios.delete(
+          `https://disco-blog-api.herokuapp.com/posts/${post._id}`,
+
+          { headers: { authorization: `Bearer ${this.loginToken}` } }
+        );
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async switchVisibility(post) {
       const vm = this;
       if (post.public) {
@@ -53,7 +68,7 @@ export default {
             { public: false },
             { headers: { authorization: `Bearer ${vm.loginToken}` } }
           );
-          this.$emit('post-status-changed');
+          this.$emit('posts-changed');
         } catch (error) {
           console.log(error);
         }
@@ -64,7 +79,7 @@ export default {
             { public: true },
             { headers: { authorization: `Bearer ${vm.loginToken}` } }
           );
-          this.$emit('post-status-changed');
+          this.$emit('posts-changed');
         } catch (error) {
           console.log(error);
         }

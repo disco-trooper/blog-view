@@ -3,7 +3,6 @@
     <Navbar @show-posts="showPosts = true" />
     <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
     <div
-      @visibilityChanged="getPosts"
       v-if="showPosts"
       @click="
         showPosts = false;
@@ -16,7 +15,7 @@
         v-for="(post, index) in posts"
         :key="index"
         ><blog-post-preview
-          @post-status-changed="getPosts"
+          @posts-changed="getPosts"
           :post="post"
         ></blog-post-preview>
       </router-link>
