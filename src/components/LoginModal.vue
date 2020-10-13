@@ -1,30 +1,47 @@
 <template>
-  <form action="">
-    <div class="modal-card" style="width: auto">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Login</p>
-        <button type="button" class="delete" @click="$emit('close')" />
-      </header>
-      <section class="modal-card-body">
-        <b-field label="Username">
-          <b-input type="type" v-model="username" required> </b-input>
-        </b-field>
-        <b-field
-          label="Password"
-          :message="hasError ? 'Invalid login credentials' : ''"
-          :type="{ 'is-danger': hasError }"
+  <form action="" class="modal-card" style="width: auto">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Login</p>
+    </header>
+    <section class="modal-card-body">
+      <b-field label="Username">
+        <b-input
+          id="username"
+          name="username"
+          type="type"
+          v-model="username"
+          required
         >
-          <b-input type="password" v-model="password" password-reveal required>
-          </b-input>
-        </b-field>
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button is-primary" @click="loginUser">Login</button>
-        <button class="button" type="button" @click="$emit('close')">
-          Close
-        </button>
-      </footer>
-    </div>
+        </b-input>
+      </b-field>
+      <b-field
+        label="Password"
+        :message="hasError ? 'Invalid login credentials' : ''"
+        :type="{ 'is-danger': hasError }"
+      >
+        <b-input
+          id="password"
+          name="password"
+          type="password"
+          v-model="password"
+          password-reveal
+          required
+        >
+        </b-input>
+      </b-field>
+    </section>
+    <footer class="modal-card-foot">
+      <button
+        type="submit"
+        class="button is-primary"
+        @click.prevent="loginUser"
+      >
+        Login
+      </button>
+      <button class="button" type="button" @click="$emit('close')">
+        Close
+      </button>
+    </footer>
   </form>
 </template>
 
@@ -42,7 +59,7 @@ export default {
         );
         this.$emit('close');
         localStorage.setItem('token', res.data.token);
-        this.$router.push('/');
+        location.reload();
         this.username = '';
         this.password = '';
         this.hasError = null;

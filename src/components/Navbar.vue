@@ -8,24 +8,29 @@
     <template slot="brand">
       <b-navbar-item tag="div" id="burgerVisible">
         <section>
-          <button
-            class="button is-primary is-outlined"
-            @click="isComponentModalActive = true"
-          >
-            Log In
+          <div v-if="!loginToken">
+            <button
+              class="button is-primary is-outlined"
+              @click="isComponentModalActive = true"
+            >
+              Log In
+            </button>
+            <b-modal
+              v-model="isComponentModalActive"
+              has-modal-card
+              trap-focus
+              :destroy-on-hide="false"
+              aria-role="dialog"
+              aria-modal
+            >
+              <template #default="props">
+                <login-modal @close="props.close"></login-modal>
+              </template>
+            </b-modal>
+          </div>
+          <button @click="logOut" v-else class="button is-light">
+            Log Out
           </button>
-          <b-modal
-            v-model="isComponentModalActive"
-            has-modal-card
-            trap-focus
-            :destroy-on-hide="false"
-            aria-role="dialog"
-            aria-modal
-          >
-            <template #default="props">
-              <login-modal @close="props.close"></login-modal>
-            </template>
-          </b-modal>
         </section>
       </b-navbar-item>
     </template>
@@ -40,14 +45,19 @@ export default {
   components: {
     LoginModal,
   },
-  data() {
-    return {
-      isComponentModalActive: false,
-      loginProps: {
-        usernameProp: '',
-        passwordProp: '',
-      },
-    };
+  data: () => ({
+    isComponentModalActive: false,
+    loginProps: {
+      usernameProp: '',
+      passwordProp: '',
+    },
+    loginToken: localStorage.getItem('token'),
+  }),
+  methods: {
+    logOut() {
+      localStorage.clear();
+      location.reload();
+    },
   },
 };
 </script>

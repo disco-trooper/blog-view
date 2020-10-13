@@ -12,20 +12,63 @@
         {{ post.authorName }}
       </p>
     </div>
+    <footer v-if="loginToken" class="card-footer">
+      <a
+        v-if="!post.public"
+        @click.prevent.stop="switchVisibility(post)"
+        class="card-footer-item"
+        >Publish</a
+      >
+      <a
+        @click.prevent.stop="switchVisibility(post)"
+        v-else
+        class="card-footer-item"
+        >Hide</a
+      >
+      <a @click.prevent.stop class="card-footer-item">Edit</a>
+    </footer>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
+import axios from 'axios';
 
 export default {
   name: 'BlogPostPreview',
   props: {
     post: { type: Object, required: true, default: null },
   },
+  data: () => ({ loginToken: localStorage.getItem('token') }),
   methods: {
     formatDate(date) {
       return moment(date).format('MMM Do, YYYY');
+    },
+    async switchVisibility(post) {
+      const vm = this;
+      if (post.public) {
+        try {
+          await axios.put(
+            `https://disco-blog-api.herokuapp.com/posts/${post._id}`,
+            { public: false },
+            { headers: { authorization: `Bearer ${vm.loginToken}` } }
+          );
+          this.$emit('post-status-changed');
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          await axios.put(
+            `https://disco-blog-api.herokuapp.com/posts/${post._id}`,
+            { public: true },
+            { headers: { authorization: `Bearer ${vm.loginToken}` } }
+          );
+          this.$emit('post-status-changed');
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
   },
 };

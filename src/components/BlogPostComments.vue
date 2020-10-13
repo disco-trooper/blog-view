@@ -13,7 +13,10 @@
           </div>
         </div>
         <div class="media-right" v-if="loginToken">
-          <button class="delete"></button>
+          <button
+            class="delete"
+            @click="deleteComment(comment._id, id)"
+          ></button>
         </div>
       </article>
     </div>
@@ -32,6 +35,20 @@ export default {
     formatDate(date) {
       return moment(date).format('MMM Do YYYY, HH:mm');
     },
+    async deleteComment(commentID, postID) {
+      const vm = this;
+      if (this.loginToken) {
+        try {
+          await axios.delete(
+            `https://disco-blog-api.herokuapp.com/posts/${postID}/comments/${commentID}`,
+            { headers: { Authorization: `Bearer ${vm.loginToken}` } }
+          );
+          await vm.getComments(postID);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
     async getComments(postID) {
       try {
         const response = await axios.get(
@@ -45,10 +62,14 @@ export default {
   },
   async mounted() {
     const vm = this;
-    this.getComments(this.id);
-    this.$root.$on('comment-sent', () => {
-      vm.getComments(vm.id);
-    });
+    try {
+      this.getComments(this.id);
+      this.$root.$on('comment-sent', () => {
+        vm.getComments(vm.id);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 </script>
