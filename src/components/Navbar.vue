@@ -28,9 +28,17 @@
               </template>
             </b-modal>
           </div>
-          <button @click="logOut" v-else class="button is-light">
-            Log Out
-          </button>
+          <div v-else>
+            <router-link
+              @click.native="$emit('hide-posts')"
+              to="new"
+              class="mr-2 is-primary is-light button"
+              >New Post</router-link
+            >
+            <b-button @click="logOut" type="is-light">
+              Log Out
+            </b-button>
+          </div>
         </section>
       </b-navbar-item>
     </template>

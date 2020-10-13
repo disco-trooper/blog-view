@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar @show-posts="showPosts = true" />
+    <Navbar @show-posts="showPosts = true" @hide-posts="showPosts = false" />
     <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
     <div
       v-if="showPosts"
@@ -20,7 +20,8 @@
         ></blog-post-preview>
       </router-link>
     </div>
-    <router-view v-if="!showPosts" :key="$route.params.id" />
+    <router-view v-if="!showPosts" />
+    <!-- <new-post v-if="false"></new-post> -->
   </div>
 </template>
 <script>
@@ -28,9 +29,11 @@ import axios from 'axios';
 import moment from 'moment';
 import BlogPostPreview from './components/BlogPostPreview';
 import Navbar from './components/Navbar';
+// import NewPost from './components/NewPost';
 
 export default {
   name: 'App',
+  components: { BlogPostPreview, Navbar },
   data: () => ({
     posts: null,
     showPosts: true,
@@ -43,7 +46,6 @@ export default {
       if (to.path === '/') this.showPosts = true;
     },
   },
-  components: { BlogPostPreview, Navbar },
   methods: {
     formatDate(date) {
       return moment(date).format('MMM Do, YYYY');
@@ -97,7 +99,7 @@ export default {
           position: 'is-bottom',
           duration: 3000,
         });
-    }, 3000);
+    }, 3500);
     this.getPosts();
   },
 };

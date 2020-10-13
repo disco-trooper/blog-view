@@ -7,9 +7,7 @@
       </div>
     </header>
     <div class="card-content">
-      <p class="content post-text">
-        {{ post.text }}
-      </p>
+      <p class="content post-text" v-html="post.text"></p>
       <p class="content has-text-left subtitle is-7">
         Posted on {{ formatDate(post.timestamp) }} by
         {{ post.authorName }}
@@ -28,7 +26,6 @@
         class="card-footer-item"
         >Hide</a
       >
-      <a @click.prevent.stop class="card-footer-item">Edit</a>
     </footer>
   </div>
 </template>
@@ -88,6 +85,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>

@@ -12,7 +12,9 @@
       tag="input"
       native-type="submit"
       value="Submit"
+      class="mr-3"
     />
+    <b-button @click="$emit('comments-closed')">Close</b-button>
   </form>
 </template>
 
