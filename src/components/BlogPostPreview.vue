@@ -53,7 +53,7 @@ export default {
         );
         location.reload();
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     },
     async switchVisibility(post) {
@@ -67,7 +67,7 @@ export default {
           );
           this.$emit('posts-changed');
         } catch (error) {
-          console.log(error);
+          throw new Error(error);
         }
       } else {
         try {
@@ -78,7 +78,7 @@ export default {
           );
           this.$emit('posts-changed');
         } catch (error) {
-          console.log(error);
+          throw new Error(error);
         }
       }
     },

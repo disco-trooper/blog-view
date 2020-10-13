@@ -65,7 +65,7 @@ export default {
         this.hasError = null;
       } catch (error) {
         this.hasError = true;
-        console.log(error);
+        throw new Error(error);
       }
     },
   },

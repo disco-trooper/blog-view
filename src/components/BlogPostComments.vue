@@ -45,7 +45,7 @@ export default {
           );
           await vm.getComments(postID);
         } catch (error) {
-          console.log(error);
+          throw new Error(error);
         }
       }
     },
@@ -56,7 +56,7 @@ export default {
         );
         this.comments = response.data.reverse();
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     },
   },
@@ -68,7 +68,7 @@ export default {
         vm.getComments(vm.id);
       });
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   },
 };

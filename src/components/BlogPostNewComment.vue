@@ -39,7 +39,7 @@ export default {
         this.author = '';
         this.text = '';
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     },
   },

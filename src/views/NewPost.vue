@@ -56,7 +56,7 @@ export default {
         this.$router.push('/');
         location.reload();
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     },
   },

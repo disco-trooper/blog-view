@@ -86,7 +86,7 @@ export default {
         this.posts = posts.reverse();
         this.isLoading = false;
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     },
   },

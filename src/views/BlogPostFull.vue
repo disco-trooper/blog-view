@@ -100,7 +100,7 @@ export default {
         this.uneditedPost.text = this.post.text;
         this.uneditedPost.title = this.post.title;
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     },
   },
@@ -114,7 +114,7 @@ export default {
       this.uneditedPost.text = this.post.text;
       this.uneditedPost.title = this.post.title;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   },
   components: { BlogPostComments, BlogPostNewComment, Editor },
