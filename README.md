@@ -8,7 +8,7 @@
 
 > A simple blog front-end view built with VueJS for my blog-api. Includes post editor.
 
-### ✨ [Demo](disco-trooper.github.io/blog-view/)
+### ✨ [Demo](https://disco-trooper.github.io/blog-view/)
 
 ## Project setup
 
