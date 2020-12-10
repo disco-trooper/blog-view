@@ -1,37 +1,30 @@
 <template>
-  <div id="app">
-    <Navbar @show-posts="showPosts = true" @hide-posts="showPosts = false" />
-    <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
-    <div
-      v-if="showPosts"
-      @click="
-        showPosts = false;
-        $emit('get-comments');
-      "
-    >
-      <router-link
-        class="router-link"
-        :to="post._id"
-        v-for="(post, index) in posts"
-        :key="index"
-        ><blog-post-preview
-          @posts-changed="getPosts"
-          :post="post"
-        ></blog-post-preview>
-      </router-link>
-    </div>
-    <router-view v-if="!showPosts" />
-    <!-- <new-post v-if="false"></new-post> -->
+  <div
+    v-if="showPosts"
+    @click="
+      showPosts = false;
+      $emit('get-comments');
+    "
+  >
+    <router-link
+      class="router-link"
+      :to="post._id"
+      v-for="(post, index) in posts"
+      :key="index"
+      ><blog-post-preview
+        @posts-changed="getPosts"
+        :post="post"
+      ></blog-post-preview>
+    </router-link>
   </div>
 </template>
 <script>
 import axios from 'axios';
-import BlogPostPreview from './components/BlogPostPreview';
-import Navbar from './components/Navbar';
+import BlogPostPreview from '../components/BlogPostPreview';
 
 export default {
   name: 'App',
-  components: { BlogPostPreview, Navbar },
+  components: { BlogPostPreview },
   data: () => ({
     posts: null,
     showPosts: true,
