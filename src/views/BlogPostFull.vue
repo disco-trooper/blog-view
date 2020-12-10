@@ -30,12 +30,12 @@
     </div>
     <div id="buttons" class="is-flex justify-start mt-2">
       <b-button
-        v-if="!editingPost"
+        v-if="!editingPost && loginToken"
         class="button mr-3"
         @click="editingPost = true"
         >Edit</b-button
       >
-      <div v-else>
+      <div v-if="editingPost">
         <b-button
           class="button mr-3"
           @click="
